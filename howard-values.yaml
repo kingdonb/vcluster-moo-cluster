@@ -1,0 +1,15 @@
+syncer:
+  extraArgs:
+  - --tls-san=howard.moomboo.space
+sync:
+  nodes:
+    enabled: false
+    nodeSelector: "kubernetes.io/hostname=hpworker01"
+  persistentvolumes:
+    enabled: false
+  # If you want to create custom storage classes
+  # inside the vcluster.
+  storageclasses:
+    enabled: false
+  ingresses:
+    enabled: false
