@@ -1,3 +1,5 @@
+vcluster:
+  image: rancher/k3s:v1.25.2-k3s1
 syncer:
   extraArgs:
   - --tls-san=howard.moomboo.space
