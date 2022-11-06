@@ -1,4 +1,5 @@
 kube-moo-sops-gpg-private.yaml
 kubeconfig-main-root.yaml
 kubeconfig.yaml
+loft-values.yaml
 root-cluster-sops-gpg-private.yaml
