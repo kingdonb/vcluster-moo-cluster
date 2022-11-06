@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vcluster-loadbalancer
+  namespace: vcluster-moo-cluster-mgorr
+spec:
+  loadBalancerIP: 10.17.12.229
+  selector:
+    app: vcluster
+    release: moo-cluster
+  ports:
+    - name: https
+      port: 443
+      targetPort: 8443
+      protocol: TCP
+  type: LoadBalancer

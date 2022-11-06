@@ -1,0 +1,15 @@
+syncer:
+  extraArgs:
+  - --tls-san=demo-cluster.turkey.local
+sync:
+  nodes:
+    enabled: true
+    nodeSelector: "kubernetes.io/hostname=moo"
+  persistentvolumes:
+    enabled: true
+  # If you want to create custom storage classes
+  # inside the vcluster.
+  storageclasses:
+    enabled: true
+  ingresses:
+    enabled: true

@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    meta.helm.sh/release-name: deis-hephy
+    meta.helm.sh/release-namespace: deis
+  labels:
+    app: controller
+    app.kubernetes.io/managed-by: Helm
+    chart: controller-v2.23.0
+    helm.toolkit.fluxcd.io/name: hephy
+    helm.toolkit.fluxcd.io/namespace: deis
+    heritage: Helm
+    release: deis-hephy
+  name: controller-api-server-ingress-http
+  namespace: deis
+spec:
+  ingressClassName: internal
+  rules:
+  - host: deis.deis.hephy.pro
+    http:
+      paths:
+      - backend:
+          service:
+            name: deis-controller
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
