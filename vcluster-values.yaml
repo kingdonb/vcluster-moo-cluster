@@ -1,0 +1,14 @@
+syncer:
+  extraArgs:
+  - --tls-san=vcluster-lb.turkey.local
+sync:
+  nodes:
+    enabled: true
+  persistentvolumes:
+    enabled: true
+  # If you want to create custom storage classes
+  # inside the vcluster.
+  storageclasses:
+    enabled: true
+  ingresses:
+    enabled: true

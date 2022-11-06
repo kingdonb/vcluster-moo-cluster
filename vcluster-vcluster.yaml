@@ -1,0 +1,43 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: vcluster
+  namespace: vcluster
+spec:
+  controlPlaneRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: VCluster
+    name: vcluster
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: VCluster
+    name: vcluster
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: VCluster
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: vcluster
+  name: vcluster
+  namespace: vcluster
+spec:
+  controlPlaneEndpoint:
+    host: vcluster-lb.turkey.local
+    port: 443
+  kubernetesVersion: 1.23.0
+  helmRelease:
+    values: |-
+      syncer:
+        extraArgs:
+        - --tls-san=vcluster-lb.turkey.local
+      sync:
+        nodes:
+          enabled: true
+        persistentvolumes:
+          enabled: true
+        # If you want to create custom storage classes
+        # inside the vcluster.
+        storageclasses:
+          enabled: true
+        ingresses:
+          enabled: true

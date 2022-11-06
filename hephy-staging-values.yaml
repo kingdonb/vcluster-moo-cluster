@@ -1,0 +1,17 @@
+vcluster:
+  image: rancher/k3s:v1.23.13-k3s1
+syncer:
+  extraArgs:
+  - --tls-san=hephy-stg.turkey.local
+sync:
+  nodes:
+    enabled: true
+    nodeSelector: "kubernetes.io/hostname=msigaming"
+  persistentvolumes:
+    enabled: true
+  # If you want to create custom storage classes
+  # inside the vcluster.
+  storageclasses:
+    enabled: false
+  ingresses:
+    enabled: true
