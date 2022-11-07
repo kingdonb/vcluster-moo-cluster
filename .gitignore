@@ -1,5 +1,5 @@
-kube-moo-sops-gpg-private.yaml
-kubeconfig-main-root.yaml
-kubeconfig.yaml
-loft-values.yaml
-root-cluster-sops-gpg-private.yaml
+private-keys/kube-moo-sops-gpg-private.yaml
+private-keys/root-cluster-sops-gpg-private.yaml
+kubeconfigs/kubeconfig-main-root.yaml
+kubeconfigs/kubeconfig.yaml
+helm-values/loft-values.yaml
