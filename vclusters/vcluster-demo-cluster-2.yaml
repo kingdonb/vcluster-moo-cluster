@@ -1,38 +1,39 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
-  name: moo-cluster
-  namespace: vcluster-moo-cluster-mgorr
+  name: demo-cluster-2
+  namespace: vcluster-demo-cluster-00002
 spec:
   controlPlaneRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: VCluster
-    name: moo-cluster
+    name: demo-cluster-2
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: VCluster
-    name: moo-cluster
+    name: demo-cluster-2
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: VCluster
 metadata:
   labels:
-    cluster.x-k8s.io/cluster-name: moo-cluster
-  name: moo-cluster
-  namespace: vcluster-moo-cluster-mgorr
+    cluster.x-k8s.io/cluster-name: demo-cluster-2
+  name: demo-cluster-2
+  namespace: vcluster-demo-cluster-00002
 spec:
   controlPlaneEndpoint:
-    host: moo-cluster.turkey.local
+    host: demo-cluster-2.turkey.local
     port: 443
-  kubernetesVersion: 1.25.3
+  kubernetesVersion: 1.23.13
   helmRelease:
     values: |-
       syncer:
         extraArgs:
-        - --tls-san=moo-cluster.turkey.local
+        - --tls-san=demo-cluster-2.turkey.local
       sync:
         nodes:
           enabled: true
+          nodeSelector: "kubernetes.io/hostname=msigaming"
         persistentvolumes:
           enabled: true
         # If you want to create custom storage classes
@@ -42,7 +43,7 @@ spec:
         ingresses:
           enabled: true
 ---
-kind: Namespace
 apiVersion: v1
+kind: Namespace
 metadata:
-  name: vcluster-moo-cluster-mgorr
+  name: vcluster-demo-cluster-00002

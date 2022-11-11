@@ -1,48 +1,50 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vcluster-hephy-stg-turkey-local
+---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
-  name: moo-cluster
-  namespace: vcluster-moo-cluster-mgorr
+  name: hephy-stg
+  namespace: vcluster-hephy-stg-turkey-local
 spec:
   controlPlaneRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: VCluster
-    name: moo-cluster
+    name: hephy-stg
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: VCluster
-    name: moo-cluster
+    name: hephy-stg
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: VCluster
 metadata:
   labels:
-    cluster.x-k8s.io/cluster-name: moo-cluster
-  name: moo-cluster
-  namespace: vcluster-moo-cluster-mgorr
+    cluster.x-k8s.io/cluster-name: hephy-stg
+  name: hephy-stg
+  namespace: vcluster-hephy-stg-turkey-local
 spec:
   controlPlaneEndpoint:
-    host: moo-cluster.turkey.local
+    host: hephy-stg.turkey.local
     port: 443
-  kubernetesVersion: 1.25.3
+  kubernetesVersion: 1.23.13
   helmRelease:
     values: |-
       syncer:
         extraArgs:
-        - --tls-san=moo-cluster.turkey.local
+        - --tls-san=hephy-stg.turkey.local
       sync:
         nodes:
           enabled: true
+          nodeSelector: "kubernetes.io/hostname=msigaming"
         persistentvolumes:
           enabled: true
         # If you want to create custom storage classes
         # inside the vcluster.
         storageclasses:
-          enabled: true
+          enabled: false
         ingresses:
           enabled: true
----
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: vcluster-moo-cluster-mgorr
