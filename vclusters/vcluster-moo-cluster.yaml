@@ -1,0 +1,43 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: moo-cluster
+  namespace: vcluster-moo-cluster-mgorr
+spec:
+  controlPlaneRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: VCluster
+    name: moo-cluster
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: VCluster
+    name: moo-cluster
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: VCluster
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: moo-cluster
+  name: moo-cluster
+  namespace: vcluster-moo-cluster-mgorr
+spec:
+  controlPlaneEndpoint:
+    host: moo-cluster.turkey.local
+    port: 443
+  kubernetesVersion: 1.25.3
+  helmRelease:
+    values: |-
+      syncer:
+        extraArgs:
+        - --tls-san=moo-cluster.turkey.local
+      sync:
+        nodes:
+          enabled: true
+        persistentvolumes:
+          enabled: true
+        # If you want to create custom storage classes
+        # inside the vcluster.
+        storageclasses:
+          enabled: true
+        ingresses:
+          enabled: true
