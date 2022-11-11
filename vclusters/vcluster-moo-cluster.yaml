@@ -1,3 +1,8 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: vcluster-moo-cluster-mgorr
+---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
@@ -41,8 +46,3 @@ spec:
           enabled: true
         ingresses:
           enabled: true
----
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: vcluster-moo-cluster-mgorr
