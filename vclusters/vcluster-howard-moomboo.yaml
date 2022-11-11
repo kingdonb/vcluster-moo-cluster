@@ -1,0 +1,52 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: vcluster-howard-moomboo-space
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: Cluster
+metadata:
+  name: howard-moomboo-cluster
+  namespace: vcluster-howard-moomboo-space
+spec:
+  controlPlaneRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: VCluster
+    name: howard-moomboo-cluster
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+    kind: VCluster
+    name: howard-moomboo-cluster
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
+kind: VCluster
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: howard-moomboo-cluster
+  name: howard-moomboo-cluster
+  namespace: vcluster-howard-moomboo-space
+spec:
+  controlPlaneEndpoint:
+    host: howard.moomboo.space
+    port: 443
+  kubernetesVersion: 1.25.3
+  helmRelease:
+    values: |-
+      # vcluster:
+      #   image: rancher/k3s:v1.25.3-k3s1
+      syncer:
+        extraArgs:
+        - --tls-san=howard.moomboo.space
+      sync:
+        nodes:
+          enabled: false
+          nodeSelector: "kubernetes.io/hostname=hpworker01"
+        persistentvolumes:
+          enabled: false
+        # If you want to create custom storage classes
+        # inside the vcluster.
+        storageclasses:
+          enabled: false
+        ingresses:
+          enabled: false
+

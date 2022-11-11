@@ -4,7 +4,7 @@ metadata:
   name: vcluster-loadbalancer
   namespace: vcluster-howard-moomboo-space
 spec:
-  loadBalancerIP: 10.17.12.233
+  loadBalancerIP: 10.17.12.235 # how-moo-lb.turkey.local
   selector:
     app: vcluster
     release: howard-moomboo-cluster
