@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: vcluster-loadbalancer
+  namespace: vcluster-howard-moomboo-stage
+spec:
+  loadBalancerIP: 10.17.12.210 # how-stg-lb.turkey.local
+  selector:
+    app: vcluster
+    release: howard-moomboo-staging
+  ports:
+    - name: https
+      port: 443
+      targetPort: 8443
+      protocol: TCP
+  type: LoadBalancer
