@@ -39,7 +39,8 @@ spec:
         - --tls-san=howard.moomboo.space
       sync:
         nodes:
-          enabled: false
+          enabled: true
+          enableScheduler: true
           nodeSelector: "kubernetes.io/hostname=hpworker01"
         persistentvolumes:
           enabled: false
