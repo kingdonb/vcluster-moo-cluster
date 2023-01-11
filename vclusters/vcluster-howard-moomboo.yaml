@@ -29,11 +29,11 @@ spec:
   controlPlaneEndpoint:
     host: howard.moomboo.space
     port: 443
-  kubernetesVersion: 1.25.3
+  kubernetesVersion: 1.25.4
   helmRelease:
     values: |-
-      # vcluster:
-      #   image: rancher/k3s:v1.25.3-k3s1
+      vcluster:
+        image: rancher/k3s:v1.25.4-k3s1
       syncer:
         extraArgs:
         - --tls-san=howard.moomboo.space
@@ -49,5 +49,5 @@ spec:
         storageclasses:
           enabled: false
         ingresses:
-          enabled: false
+          enabled: true
 
