@@ -45,9 +45,8 @@ spec:
         nodes:
           enabled: true
           enableScheduler: true
-          nodeSelector: "kubernetes.io/hostname=hpworker01"
         persistentvolumes:
-          enabled: false
+          enabled: true
         # If you want to create custom storage classes
         # inside the vcluster.
         storageclasses:
