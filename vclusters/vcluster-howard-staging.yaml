@@ -29,7 +29,7 @@ spec:
   controlPlaneEndpoint:
     host: howard.moomboo.stage
     port: 443
-  kubernetesVersion: 1.26
+  kubernetesVersion: "1.26"
   helmRelease:
     values: |-
       vcluster:
