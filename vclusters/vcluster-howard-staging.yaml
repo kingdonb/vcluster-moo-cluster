@@ -40,7 +40,7 @@ spec:
       sync:
         nodes:
           enabled: false
-          nodeSelector: "kubernetes.io/hostname=hpworker02"
+          nodeSelector: "kubernetes.io/hostname=moo"
         persistentvolumes:
           enabled: false
         # If you want to create custom storage classes
