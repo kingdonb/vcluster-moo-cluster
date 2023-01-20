@@ -53,4 +53,6 @@ spec:
           enabled: false
         ingresses:
           enabled: true
+      nodeSelector:
+        kubernetes.io/hostname: msigaming
 
