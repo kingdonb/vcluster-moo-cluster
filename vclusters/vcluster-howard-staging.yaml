@@ -48,5 +48,5 @@ spec:
         storageclasses:
           enabled: false
         ingresses:
-          enabled: false
+          enabled: true
 
