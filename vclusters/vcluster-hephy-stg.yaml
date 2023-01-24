@@ -33,6 +33,11 @@ spec:
   kubernetesVersion: "1.23"
   helmRelease:
     values: |-
+      vcluster:
+        extraArgs:
+        - --kube-apiserver-arg --oidc-issuer-url=https://dex.howard.moomboo.space
+        - --kube-apiserver-arg --oidc-client-id=weave-gitops
+        - --kube-apiserver-arg --oidc-groups-claim=groups
       syncer:
         extraArgs:
         - --tls-san=hephy-stg.turkey.local
