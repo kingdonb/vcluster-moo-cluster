@@ -30,7 +30,7 @@ spec:
   controlPlaneEndpoint:
     host: hephy-stg.turkey.local
     port: 443
-  kubernetesVersion: 1.23.13
+  kubernetesVersion: "1.23"
   helmRelease:
     values: |-
       syncer:
