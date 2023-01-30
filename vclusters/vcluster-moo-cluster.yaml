@@ -29,9 +29,15 @@ spec:
   controlPlaneEndpoint:
     host: moo-cluster.turkey.local
     port: 443
-  kubernetesVersion: 1.25.3
+  kubernetesVersion: "1.25"
   helmRelease:
     values: |-
+      vcluster:
+        image: rancher/k3s:v1.25.6-k3s1
+        extraArgs:
+        - --kube-apiserver-arg --oidc-issuer-url=https://dex.howard.moomboo.space
+        - --kube-apiserver-arg --oidc-client-id=weave-gitops
+        - --kube-apiserver-arg --oidc-groups-claim=groups
       syncer:
         extraArgs:
         - --tls-san=moo-cluster.turkey.local
