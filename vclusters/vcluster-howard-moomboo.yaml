@@ -1,7 +1,7 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: vcluster-howard-moomboo-space
+# kind: Namespace
+# apiVersion: v1
+# metadata:
+#   name: vcluster-howard-moomboo-space
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
