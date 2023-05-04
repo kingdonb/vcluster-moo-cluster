@@ -27,18 +27,20 @@ metadata:
   namespace: vcluster-demo-cluster-00002
 spec:
   controlPlaneEndpoint:
-    host: demo-cluster-2.turkey.local
+    host: demo-cluster-2.hephy.pro
     port: 443
-  kubernetesVersion: 1.23.13
+  kubernetesVersion: "1.27"
   helmRelease:
     values: |-
+      vcluster:
+        image: rancher/k3s:v1.27.1-k3s1
       syncer:
         extraArgs:
-        - --tls-san=demo-cluster-2.turkey.local
+        - --tls-san=demo-cluster-2.hephy.pro
       sync:
         nodes:
           enabled: true
-          nodeSelector: "kubernetes.io/hostname=msigaming"
+          # nodeSelector: "kubernetes.io/hostname=msigaming"
         persistentvolumes:
           enabled: true
         # If you want to create custom storage classes

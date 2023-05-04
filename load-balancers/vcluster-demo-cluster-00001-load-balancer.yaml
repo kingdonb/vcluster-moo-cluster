@@ -4,7 +4,7 @@ metadata:
   name: vcluster-loadbalancer
   namespace: vcluster-demo-cluster-00001
 spec:
-  loadBalancerIP: 10.17.12.230
+  # loadBalancerIP: 10.17.12.230
   selector:
     app: vcluster
     release: demo-cluster
