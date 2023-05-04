@@ -45,9 +45,9 @@ spec:
         #   enabled: true
         # If you want to create custom storage classes
         # inside the vcluster.
-        # storageclasses:
-        #   enabled: true
-        hoststorageclasses:
+        storageclasses:
           enabled: true
+        # hoststorageclasses:
+        #   enabled: true
         ingresses:
           enabled: true
