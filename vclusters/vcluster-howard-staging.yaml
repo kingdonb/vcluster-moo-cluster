@@ -29,11 +29,11 @@ spec:
   controlPlaneEndpoint:
     host: howard.moomboo.stage
     port: 443
-  kubernetesVersion: "1.26"
+  kubernetesVersion: "1.27"
   helmRelease:
     values: |-
       vcluster:
-        image: rancher/k3s:v1.26.1-k3s1
+        image: rancher/k3s:v1.27.4-k3s1
         extraArgs:
         - --kube-apiserver-arg --oidc-issuer-url=https://dex.howard.moomboo.space
         - --kube-apiserver-arg --oidc-client-id=wg-kubelogin
