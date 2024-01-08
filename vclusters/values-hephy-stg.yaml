@@ -1,0 +1,21 @@
+vcluster:
+  image: rancher/k3s:v1.28.5-k3s1
+  extraArgs:
+  - --kube-apiserver-arg --oidc-issuer-url=https://dex.howard.moomboo.space
+  - --kube-apiserver-arg --oidc-client-id=wg-kubelogin
+  - --kube-apiserver-arg --oidc-groups-claim=groups
+syncer:
+  extraArgs:
+  - --tls-san=hephy-stg.turkey.local
+sync:
+  nodes:
+    enabled: true
+    nodeSelector: "kubernetes.io/hostname=msigaming"
+  persistentvolumes:
+    enabled: true
+  # If you want to create custom storage classes
+  # inside the vcluster.
+  storageclasses:
+    enabled: false
+  ingresses:
+    enabled: true
