@@ -34,27 +34,35 @@ spec:
       name: vcluster
       version: v0.20.0-beta.6
     values: |-
-      vcluster:
-        image: rancher/k3s:v1.30.1-k3s1
-        extraArgs:
-        - --kube-apiserver-arg=--oidc-issuer-url=https://dex.howard.moomboo.space
-        - --kube-apiserver-arg=--oidc-client-id=wg-kubelogin
-        - --kube-apiserver-arg=--oidc-groups-claim=groups
-      syncer:
-        extraArgs:
-        - --tls-san=howard.moomboo.space
+      controlPlane:
+        advanced:
+          virtualScheduler:
+            enabled: true
+        distro:
+          k3s:
+            enabled: true
+            extraArgs:
+            - --kube-apiserver-arg=oidc-issuer-url=https://dex.howard.moomboo.space
+            - --kube-apiserver-arg=oidc-client-id=wg-kubelogin
+            - --kube-apiserver-arg=oidc-groups-claim=groups
+            image:
+              tag: v1.30.1-k3s1
+        proxy:
+          extraSANs:
+          - howard.moomboo.space
+        statefulSet:
+          scheduling:
+            nodeSelector:
+              kubernetes.io/hostname: msigaming
+            podManagementPolicy: OrderedReady
       sync:
-        nodes:
-          enabled: true
-          enableScheduler: true
-        persistentvolumes:
-          enabled: true
-        # If you want to create custom storage classes
-        # inside the vcluster.
-        storageclasses:
-          enabled: false
-        ingresses:
-          enabled: true
-      nodeSelector:
-        kubernetes.io/hostname: msigaming
-
+        fromHost:
+          ingressClasses:
+            enabled: true
+          nodes:
+            enabled: true
+        toHost:
+          ingresses:
+            enabled: true
+          persistentVolumes:
+            enabled: true
