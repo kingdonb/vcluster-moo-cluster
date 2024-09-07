@@ -10,7 +10,7 @@ syncer:
 sync:
   nodes:
     enabled: true
-    nodeSelector: "kubernetes.io/hostname=msigaming"
+    # nodeSelector: "kubernetes.io/hostname=msigaming"
   persistentvolumes:
     enabled: true
   # If you want to create custom storage classes
