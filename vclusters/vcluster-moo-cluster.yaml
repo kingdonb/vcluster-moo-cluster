@@ -1,57 +1,59 @@
-# kind: Namespace
-# apiVersion: v1
-# metadata:
-#   name: vcluster-moo-cluster-mgorr
----
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
-  name: moo-cluster
-  namespace: vcluster-moo-cluster-mgorr
+  name: moo
+  namespace: vcluster-moo-cluster
 spec:
   controlPlaneRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: VCluster
-    name: moo-cluster
+    name: moo
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
     kind: VCluster
-    name: moo-cluster
+    name: moo
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha1
 kind: VCluster
 metadata:
-  labels:
-    cluster.x-k8s.io/cluster-name: moo-cluster
-  name: moo-cluster
-  namespace: vcluster-moo-cluster-mgorr
+  name: moo
+  namespace: vcluster-moo-cluster
 spec:
   controlPlaneEndpoint:
-    host: moo-cluster.turkey.local
-    port: 443
-  kubernetesVersion: "1.28"
+    host: ""
+    port: 0
   helmRelease:
     chart:
       name: vcluster
-      version: 0.17.1
-    values: |-
-      vcluster:
-        image: rancher/k3s:v1.28.5-k3s1
-        extraArgs:
-        - --kube-apiserver-arg --oidc-issuer-url=https://dex.howard.moomboo.space
-        - --kube-apiserver-arg --oidc-client-id=wg-kubelogin
-        - --kube-apiserver-arg --oidc-groups-claim=groups
-      syncer:
-        extraArgs:
-        - --tls-san=moo-cluster.turkey.local
+      repo: https://charts.loft.sh
+      version: 0.20.0
+    values: |
+      controlPlane:
+        distro:
+          k3s:
+            enabled: true
+            extraArgs:
+            - --kube-apiserver-arg=oidc-issuer-url=https://dex.howard.moomboo.space
+            - --kube-apiserver-arg=oidc-client-id=wg-kubelogin
+            - --kube-apiserver-arg=oidc-groups-claim=groups
+            image:
+              tag: v1.28.5-k3s1
+        proxy:
+          extraSANs:
+          - moo-cluster.turkey.local
+        statefulSet:
+          scheduling:
+            podManagementPolicy: OrderedReady
       sync:
-        nodes:
-          enabled: true
-        persistentvolumes:
-          enabled: true
-        # If you want to create custom storage classes
-        # inside the vcluster.
-        storageclasses:
-          enabled: true
-        ingresses:
-          enabled: true
+        fromHost:
+          ingressClasses:
+            enabled: true
+          nodes:
+            enabled: true
+        toHost:
+          ingresses:
+            enabled: true
+          persistentVolumes:
+            enabled: true
+          storageClasses:
+            enabled: true
