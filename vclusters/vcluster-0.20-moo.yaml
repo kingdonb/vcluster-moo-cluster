@@ -1,0 +1,29 @@
+controlPlane:
+  distro:
+    k3s:
+      enabled: true
+      extraArgs:
+      - --kube-apiserver-arg=oidc-issuer-url=https://dex.howard.moomboo.space
+      - --kube-apiserver-arg=oidc-client-id=wg-kubelogin
+      - --kube-apiserver-arg=oidc-groups-claim=groups
+      image:
+        tag: v1.28.5-k3s1
+  proxy:
+    extraSANs:
+    - moo-cluster.turkey.local
+  statefulSet:
+    scheduling:
+      podManagementPolicy: OrderedReady
+sync:
+  fromHost:
+    ingressClasses:
+      enabled: true
+    nodes:
+      enabled: true
+  toHost:
+    ingresses:
+      enabled: true
+    persistentVolumes:
+      enabled: true
+    storageClasses:
+      enabled: true
