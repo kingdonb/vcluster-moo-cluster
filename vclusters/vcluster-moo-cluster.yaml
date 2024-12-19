@@ -36,6 +36,7 @@ spec:
             tls:
             - hosts:
               - moo-cluster.turkey.local
+              - moo.vcluster-moo-cluster.svc
               secretName: testsecret-tls
         distro:
           k3s:
@@ -49,6 +50,7 @@ spec:
         proxy:
           extraSANs:
           - moo-cluster.turkey.local
+          - moo.vcluster-moo-cluster.svc
         statefulSet:
           scheduling:
             podManagementPolicy: OrderedReady
