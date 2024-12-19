@@ -29,6 +29,14 @@ spec:
       version: 0.20.0
     values: |
       controlPlane:
+        ingress:
+          enabled: true
+          host: moo-cluster.turkey.local
+          spec:
+            tls:
+            - hosts:
+              - moo-cluster.turkey.local
+              secretName: testsecret-tls
         distro:
           k3s:
             enabled: true
